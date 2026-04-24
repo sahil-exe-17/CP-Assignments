@@ -1,26 +1,55 @@
 #include <iostream>
 using namespace std;
 
-int q[5], front = -1, rear = -1;
+struct Node {
+    int data;
+    Node* next;
+};
 
-void enqueue(int x) {
-    if(rear == 4) cout << "Full\n";
-    else {
-        if(front == -1) front = 0;
-        q[++rear] = x;
+class Stack {
+    Node* top;
+
+public:
+    Stack() {
+        top = NULL;
     }
-}
 
-void dequeue() {
-    if(front == -1 || front > rear) cout << "Empty\n";
-    else front++;
-}
+    void push(int x) {
+        Node* temp = new Node();
+        temp->data = x;
+        temp->next = top;
+        top = temp;
+        cout << x << " pushed\n";
+    }
+
+    void pop() {
+        if (top == NULL) {
+            cout << "Stack Underflow\n";
+        } else {
+            cout << top->data << " popped\n";
+            Node* temp = top;
+            top = top->next;
+            delete temp;
+        }
+    }
+
+    void display() {
+        Node* temp = top;
+        while (temp != NULL) {
+            cout << temp->data << " ";
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+};
 
 int main() {
-    enqueue(10);
-    enqueue(20);
-    enqueue(30);
-    dequeue();
-
-    cout << "Front: " << q[front];
+    Stack s;
+    s.push(5);
+    s.push(15);
+    s.push(25);
+    s.display();
+    s.pop();
+    s.display();
+    return 0;
 }
