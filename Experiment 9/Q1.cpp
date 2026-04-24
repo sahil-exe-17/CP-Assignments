@@ -1,24 +1,49 @@
 #include <iostream>
 using namespace std;
 
-#define MAX 5
-int stack[MAX], top = -1;
+#define MAX 100
 
-void push(int x) {
-    if(top == MAX-1) cout << "Overflow\n";
-    else stack[++top] = x;
-}
+class Stack {
+    int arr[MAX];
+    int top;
 
-void pop() {
-    if(top == -1) cout << "Underflow\n";
-    else top--;
-}
+public:
+    Stack() {
+        top = -1;
+    }
+
+    void push(int x) {
+        if (top >= MAX - 1) {
+            cout << "Stack Overflow\n";
+        } else {
+            arr[++top] = x;
+            cout << x << " pushed\n";
+        }
+    }
+
+    void pop() {
+        if (top < 0) {
+            cout << "Stack Underflow\n";
+        } else {
+            cout << arr[top--] << " popped\n";
+        }
+    }
+
+    void display() {
+        for (int i = top; i >= 0; i--) {
+            cout << arr[i] << " ";
+        }
+        cout << endl;
+    }
+};
 
 int main() {
-    push(10);
-    push(20);
-    push(30);
-    pop();
-
-    cout << "Top element: " << stack[top];
+    Stack s;
+    s.push(10);
+    s.push(20);
+    s.push(30);
+    s.display();
+    s.pop();
+    s.display();
+    return 0;
 }
